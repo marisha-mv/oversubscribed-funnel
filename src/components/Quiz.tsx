@@ -7,6 +7,8 @@ import { Answers, QualAnswers, scoreQuiz } from "@/lib/score";
 import { saveSession } from "@/lib/storage";
 import ProgressBar from "@/components/ProgressBar";
 import ProofInterstitial from "@/components/ProofInterstitial";
+import MediaBar from "@/components/MediaBar";
+import { IMG } from "@/data/images";
 
 type Phase = "intro" | "steps" | "capture";
 
@@ -86,38 +88,60 @@ export default function Quiz() {
   // ---------- INTRO ----------
   if (phase === "intro") {
     return (
-      <main className="mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center px-5 py-16 text-center">
-        <div className="animate-fade-up">
-          <p className="chip mb-5 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em]">
-            With Daniel Priestley
-          </p>
-          <h1 className="font-display text-4xl leading-[1.08] text-ink sm:text-6xl">
-            Do clients <span className="text-gradient">line up</span> for you?
-            <br className="hidden sm:block" /> Or are you chasing them?
-          </h1>
-          <p className="mx-auto mt-6 max-w-xl text-lg text-ink-muted">
-            Take the 2-minute <strong className="text-ink">Oversubscribed Scorecard</strong> and
-            see exactly where your demand engine is leaking — across the four factors that decide
-            whether high-paying clients line up for you, or you go chasing them.
-          </p>
-
-          <div className="mt-8 grid grid-cols-2 gap-3 text-left sm:grid-cols-4">
-            {FACTOR_ORDER.map((k) => (
-              <div key={k} className="card px-4 py-3">
-                <p className="text-sm font-bold text-ink">{FACTORS[k].label}</p>
-              </div>
-            ))}
+      <main className="mx-auto max-w-5xl px-5 py-12 sm:py-16">
+        <div className="grid items-center gap-10 sm:grid-cols-2">
+          {/* left: copy */}
+          <div className="animate-fade-up text-center sm:text-left">
+            <p className="chip mb-5 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em]">
+              With Daniel Priestley
+            </p>
+            <h1 className="font-display text-4xl leading-[1.06] text-ink sm:text-5xl">
+              Do clients <span className="text-gradient">line up</span> for you?
+              <br className="hidden sm:block" /> Or are you chasing them?
+            </h1>
+            <p className="mt-5 max-w-xl text-lg text-ink-muted">
+              Take the 2-minute <strong className="text-ink">Oversubscribed Scorecard</strong> and
+              see exactly where your demand engine is leaking — and how to get high-paying clients
+              lining up instead of chasing them.
+            </p>
+            <button
+              onClick={() => setPhase("steps")}
+              className="btn-primary animate-pulse-primary mt-8 px-10 py-4 text-base sm:text-lg"
+            >
+              Start the scorecard →
+            </button>
+            <p className="mt-4 text-sm text-ink-subtle">
+              11 quick questions · 2 minutes · instant personalised result
+            </p>
           </div>
 
-          <button
-            onClick={() => setPhase("steps")}
-            className="btn-primary animate-pulse-primary mt-10 px-10 py-4 text-base sm:text-lg"
-          >
-            Start the scorecard →
-          </button>
-          <p className="mt-4 text-sm text-ink-subtle">
-            11 quick questions · 2 minutes · instant personalised result
-          </p>
+          {/* right: Daniel portrait */}
+          <div className="animate-fade-up flex justify-center">
+            <figure className="relative">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={IMG.daniel}
+                alt="Daniel Priestley"
+                className="w-64 rounded-3xl object-cover shadow-2xl sm:w-72"
+                style={{ boxShadow: "0 24px 60px -20px rgba(217,70,239,0.5)" }}
+              />
+              <figcaption className="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink px-4 py-1.5 text-xs font-semibold text-white shadow-lg">
+                Daniel Priestley · Oversubscribed
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        {/* media bar */}
+        <MediaBar className="mt-14" />
+
+        {/* factor strip */}
+        <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {FACTOR_ORDER.map((k) => (
+            <div key={k} className="card px-4 py-3 text-center">
+              <p className="text-sm font-bold text-ink">{FACTORS[k].label}</p>
+            </div>
+          ))}
         </div>
       </main>
     );

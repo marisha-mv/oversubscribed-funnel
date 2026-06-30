@@ -8,6 +8,7 @@ import { scoreQuiz, ScorecardResult } from "@/lib/score";
 import ScoreBar from "@/components/ScoreBar";
 import Avatar from "@/components/Avatar";
 import { TESTIMONIALS } from "@/data/proof";
+import { IMG } from "@/data/images";
 
 function ResultsInner() {
   const params = useSearchParams();
@@ -124,10 +125,23 @@ function ResultsInner() {
       <div className="mt-10 text-center">
         {isReady ? (
           <>
+            <div className="mb-5 flex items-center justify-center gap-3">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={IMG.daniel}
+                alt="Daniel Priestley"
+                className="h-16 w-16 rounded-full object-cover shadow-md"
+              />
+              <p className="text-left text-sm font-semibold text-ink">
+                Daniel recorded a short training
+                <br />
+                <span className="font-normal text-ink-subtle">just for your result</span>
+              </p>
+            </div>
             <p className="text-ink-muted">
-              You gave us your diagnosis — now here&apos;s the fix. Daniel recorded a short training
-              that shows {greetName} exactly how to engineer demand-supply tension and get
-              high-paying clients lining up, in the age of AI.
+              You gave us your diagnosis — now here&apos;s the fix. Daniel shows {greetName} exactly
+              how to engineer demand-supply tension and get high-paying clients lining up, in the age
+              of AI.
             </p>
             <div className="chip mt-5 inline-flex items-center gap-2 px-4 py-2 text-sm">
               Small cohorts only · we keep the accelerator high-touch

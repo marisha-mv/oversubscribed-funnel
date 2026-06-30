@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { TESTIMONIALS, PROOF_STATS } from "@/data/proof";
 import Avatar from "@/components/Avatar";
+import MediaBar from "@/components/MediaBar";
+import { IMG } from "@/data/images";
 
 const REVEAL_AFTER_SECONDS = 8; // set to ~600 (10 min) for production; short for testing
 
@@ -99,6 +101,8 @@ function VslInner() {
       <p className="mt-4 text-center text-sm text-ink-subtle">
         Turn your sound on. Best watched start to finish.
       </p>
+
+      <MediaBar className="mt-10" />
 
       {/* CTA reveal */}
       <div className="mt-8 text-center">
@@ -224,20 +228,49 @@ function VslInner() {
         </p>
       </section>
 
+      {/* real event proof */}
+      <section className="mt-12">
+        <div className="card overflow-hidden p-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={IMG.eventCollage}
+            alt="Mindvalley University, Tallinn"
+            className="h-56 w-full object-cover sm:h-72"
+          />
+          <div className="p-6 text-center">
+            <h3 className="font-display text-xl text-ink">
+              Filmed live at Mindvalley University, Tallinn
+            </h3>
+            <p className="mt-2 text-sm text-ink-muted">
+              Join in person, or take your seat virtually from anywhere in the world.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Priestley bio */}
       <section className="mt-12">
-        <div className="card p-7 sm:p-9">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-fuchsia-dark">
-            Your mentor
-          </p>
-          <h2 className="mt-2 font-display text-2xl text-ink">Daniel Priestley</h2>
-          <p className="mt-3 text-ink-muted">
-            Founder who has built and sold businesses across the UK, Australia and Singapore. He
-            created the <em>Oversubscribed</em> and <em>Key Person of Influence</em> methodologies,
-            founded ScoreApp (150,000+ leads a month for 4,000+ clients), and is the most-returning
-            guest on Diary of a CEO. His sessions inside Mindvalley&apos;s Entrepreneurship Mastery
-            average <strong className="text-ink">9.55 / 10</strong> across 700+ ratings.
-          </p>
+        <div className="card flex flex-col gap-6 p-7 sm:flex-row sm:items-center sm:p-9">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={IMG.daniel}
+            alt="Daniel Priestley"
+            className="mx-auto w-40 shrink-0 rounded-2xl object-cover shadow-lg sm:mx-0"
+          />
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-fuchsia-dark">
+              Your mentor
+            </p>
+            <h2 className="mt-2 font-display text-2xl text-ink">Daniel Priestley</h2>
+            <p className="mt-3 text-ink-muted">
+              Founder who has built and sold businesses across the UK, Australia and Singapore. He
+              created the <em>Oversubscribed</em> and <em>Key Person of Influence</em> methodologies,
+              founded ScoreApp (150,000+ leads a month for 4,000+ clients), and is the
+              most-returning guest on Diary of a CEO. His sessions inside Mindvalley&apos;s
+              Entrepreneurship Mastery average <strong className="text-ink">9.55 / 10</strong> across
+              700+ ratings.
+            </p>
+          </div>
         </div>
       </section>
 
