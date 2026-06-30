@@ -17,23 +17,43 @@ export interface Testimonial {
   source: string; // verification URL
 }
 
-// Named client results — strongest "X → Y" proof. Source: dent.global case studies.
+// Photos hosted locally in /public/proof (sourced from danielpriestley.com).
+// Verbatim quotes from danielpriestley.com/dent-accelerators and dent.global.
 export const TESTIMONIALS: Testimonial[] = [
+  {
+    name: "Stephanie Taylor",
+    role: "Founder, HMO Heaven",
+    quote:
+      "What I value most is the connections I've made with fellow entrepreneurs — a community all aiming to be exceptional.",
+    result: "#1 bestselling book · 27× website traffic",
+    photo: "/proof/stephanie-taylor.jpeg",
+    source: "https://danielpriestley.com/dent-accelerators/",
+  },
+  {
+    name: "Kate Christie",
+    role: "Founder, Time Stylers",
+    quote:
+      "I was able to offer greater value and more products to my clients — and create additional income streams for me.",
+    result: "New product tiers · new recurring income streams",
+    photo: "/proof/kate-christie.jpeg",
+    source: "https://danielpriestley.com/dent-accelerators/",
+  },
   {
     name: "Francisco Bricio",
     role: "Founder, Simetrical",
     quote: "We did all the principles, and now we've grown exponentially.",
     result: "$2M → $60M+ revenue · expanded 1 → 11 countries",
-    photo: null, // dent.global case-study headshot available
+    photo: null,
     source: "https://www.dent.global/",
   },
   {
-    name: "Stephanie Taylor",
-    role: "Founder, HMO Heaven",
-    quote: "One of the best investments we've ever made in our business.",
-    result: "#1 bestselling book · 27× website traffic",
+    name: "Mok O'Keeffe",
+    role: "Founder, The Innovation Beehive",
+    quote:
+      "Our business has almost doubled in size, and we have clients in the UK, Europe, the Middle East and North America.",
+    result: "1 → 5 employees · nearly doubled · partnered with Google",
     photo: null,
-    source: "https://www.dent.global/",
+    source: "https://danielpriestley.com/dent-accelerators/",
   },
   {
     name: "Sebastian Bates",
@@ -41,22 +61,6 @@ export const TESTIMONIALS: Testimonial[] = [
     quote:
       "The quality of the teaching is amazing — not a single question the mentors are fazed by.",
     result: "Amazon bestseller · scaled to 2,000 students globally",
-    photo: null,
-    source: "https://www.dent.global/",
-  },
-  {
-    name: "Mok O'Keeffe",
-    role: "Founder, The Innovation Beehive",
-    quote: "It gives you a structure and process that allows you to believe in yourself.",
-    result: "1 → 5 employees · business nearly doubled · partnered with Google",
-    photo: null,
-    source: "https://www.dent.global/",
-  },
-  {
-    name: "Katherine Maslen",
-    role: "Founder, Brisbane Natural Health",
-    quote: "Things really started to shift, and the media began to notice me.",
-    result: "National TV + press features · 30% more new clients",
     photo: null,
     source: "https://www.dent.global/",
   },

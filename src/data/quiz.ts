@@ -127,7 +127,7 @@ export const STEPS: Step[] = [
     ],
   },
 
-  { id: "p_open", kind: "proof", testimonialIndex: 1, eyebrow: "You're in good company" },
+  { id: "p_open", kind: "proof", testimonialIndex: 0, eyebrow: "You're in good company" },
 
   // --- Demand–Supply Tension ---
   {
@@ -182,7 +182,7 @@ export const STEPS: Step[] = [
     ],
   },
 
-  { id: "p_mid", kind: "proof", testimonialIndex: 2, eyebrow: "This works at every level" },
+  { id: "p_mid", kind: "proof", testimonialIndex: 1, eyebrow: "This works at every level" },
 
   // --- Campaign Rhythm ---
   {
@@ -237,7 +237,7 @@ export const STEPS: Step[] = [
     ],
   },
 
-  { id: "p_close", kind: "proof", testimonialIndex: 0, eyebrow: "Where this can go" },
+  { id: "p_close", kind: "proof", testimonialIndex: 2, eyebrow: "Where this can go" },
 ];
 
 export const SCORED_QUESTIONS = STEPS.filter(
