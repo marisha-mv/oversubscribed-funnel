@@ -1,0 +1,212 @@
+@import "tailwindcss";
+/* Fonts (Poppins + Nunito + Space Mono) are loaded via <link> in layout.tsx. */
+
+/* ================================================================
+   Oversubscribed Funnel — "ShopVibe" design system
+   Light, spacious, modern. Fuchsia primary · cyan + yellow accents.
+   Headlines: Poppins · Body: Nunito · Mono: Space Mono
+   ================================================================ */
+
+:root {
+  /* brand */
+  --fuchsia: #d946ef;
+  --fuchsia-dark: #c026d3;
+  --fuchsia-light: #fae8ff;
+  --cyan: #22d3ee;
+  --cyan-light: #cffafe;
+  --yellow: #facc15;
+  --yellow-light: #fef9c3;
+
+  /* neutrals */
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --ink: #18181b; /* headings, primary text */
+  --ink-muted: #52525b; /* secondary */
+  --ink-subtle: #71717a; /* captions, helper */
+  --line: #e4e4e7; /* borders, track */
+  --line-strong: #d4d4d8;
+
+  /* semantic / severity (var names reused by quiz data + ScoreBar) */
+  --ok: #22c55e;
+  --warn: #facc15;
+  --hot: #f97316;
+  --crit: #ef4444;
+
+  --background: var(--bg);
+  --foreground: var(--ink);
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--ink);
+
+  --color-fuchsia-brand: var(--fuchsia);
+  --color-fuchsia-dark: var(--fuchsia-dark);
+  --color-fuchsia-light: var(--fuchsia-light);
+  --color-cyan-brand: var(--cyan);
+  --color-cyan-light: var(--cyan-light);
+  --color-yellow-brand: var(--yellow);
+  --color-yellow-light: var(--yellow-light);
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-hot: var(--hot);
+  --color-crit: var(--crit);
+
+  --font-display: "Poppins", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: "Nunito", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(900px 500px at 12% -8%, rgba(217, 70, 239, 0.07), transparent 60%),
+    radial-gradient(800px 500px at 95% 0%, rgba(34, 211, 238, 0.08), transparent 55%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: "Nunito", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, var(--fuchsia), var(--cyan) 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* primary CTA — fuchsia, pill */
+.btn-primary {
+  background: var(--fuchsia);
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border: none;
+  border-radius: 9999px;
+  box-shadow: 0 10px 28px -10px rgba(217, 70, 239, 0.6);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: var(--fuchsia-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px -10px rgba(217, 70, 239, 0.7);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-ghost {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1.5px solid var(--line-strong);
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.btn-ghost:hover {
+  border-color: var(--fuchsia);
+  color: var(--fuchsia);
+}
+
+/* surface card */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: 0 1px 2px rgba(24, 24, 27, 0.04), 0 12px 32px -16px rgba(24, 24, 27, 0.12);
+}
+
+/* quiz option */
+.option {
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+.option:hover {
+  border-color: var(--fuchsia);
+  box-shadow: 0 8px 20px -12px rgba(217, 70, 239, 0.45);
+}
+.option[data-selected="true"] {
+  border-color: var(--fuchsia);
+  background: var(--fuchsia-light);
+}
+
+/* pill / eyebrow chip */
+.chip {
+  display: inline-block;
+  border-radius: 9999px;
+  background: var(--fuchsia-light);
+  color: var(--fuchsia-dark);
+  border: 1px solid rgba(217, 70, 239, 0.25);
+}
+
+/* form input */
+.inp {
+  width: 100%;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  padding: 0.7rem 1rem;
+  color: var(--ink);
+  font-family: "Nunito", sans-serif;
+}
+.inp::placeholder {
+  color: var(--ink-subtle);
+}
+.inp:focus {
+  outline: none;
+  border-color: var(--fuchsia);
+  box-shadow: 0 0 0 3px rgba(217, 70, 239, 0.15);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes growBar {
+  from { width: 0; }
+}
+.animate-grow {
+  animation: growBar 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes pulsePrimary {
+  0%, 100% { box-shadow: 0 10px 28px -10px rgba(217, 70, 239, 0.6); }
+  50% { box-shadow: 0 12px 40px -6px rgba(217, 70, 239, 0.85); }
+}
+.animate-pulse-primary {
+  animation: pulsePrimary 2.2s ease-in-out infinite;
+}
