@@ -14,9 +14,23 @@ const STAGES = [
 const REVENUE = [
   "Pre-revenue",
   "Under $5k / month",
-  "$5k–$25k / month",
-  "$25k–$100k / month",
-  "$100k+ / month",
+  "$5k–$15k / month",
+  "$15k–$40k / month",
+  "$40k+ / month",
+];
+
+// Need / product-market-fit screen.
+const PROVEN = [
+  "Yes — clients consistently get great results",
+  "Mostly — it's getting there",
+  "Still shaping my offer",
+];
+
+// Timing / commitment.
+const TIMING = [
+  "Ready to start now",
+  "Within the next 1–2 months",
+  "Just exploring for now",
 ];
 
 // Replace with the real booking link (Calendly / SavvyCal / MV scheduler).
@@ -29,6 +43,8 @@ function ApplyInner() {
   const [business, setBusiness] = useState("");
   const [stage, setStage] = useState("");
   const [revenue, setRevenue] = useState("");
+  const [proven, setProven] = useState("");
+  const [timing, setTiming] = useState("");
   const [challenge, setChallenge] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
@@ -49,11 +65,14 @@ function ApplyInner() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           type: "apply",
+          archetype: params.get("type") || "",
           firstName,
           email,
           business,
           stage,
           revenue,
+          proven,
+          timing,
           challenge,
         }),
       });
@@ -99,7 +118,7 @@ function ApplyInner() {
           Apply for the Oversubscribed Accelerator
         </h1>
         <p className="mt-3 text-ink-muted">
-          Intakes are kept small so the build stays hands-on. Tell us about your business and, if
+          Cohorts are kept small so the build stays hands-on. Tell us about your business and, if
           it&apos;s a fit, we&apos;ll book your call.
         </p>
       </div>
@@ -109,13 +128,7 @@ function ApplyInner() {
           <input value={firstName} onChange={(e) => setFirstName(e.target.value)} required className="inp" />
         </Field>
         <Field label="Best email">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="inp"
-          />
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="inp" />
         </Field>
         <Field label="What does your business do?">
           <input
@@ -125,6 +138,16 @@ function ApplyInner() {
             required
             className="inp"
           />
+        </Field>
+        <Field label="Do you have an offer that reliably gets clients results?">
+          <select value={proven} onChange={(e) => setProven(e.target.value)} required className="inp">
+            <option value="">Select…</option>
+            {PROVEN.map((p) => (
+              <option key={p} value={p}>
+                {p}
+              </option>
+            ))}
+          </select>
         </Field>
         <Field label="What stage are you at?">
           <select value={stage} onChange={(e) => setStage(e.target.value)} required className="inp">
@@ -146,6 +169,16 @@ function ApplyInner() {
             ))}
           </select>
         </Field>
+        <Field label="If accepted, how soon would you start?">
+          <select value={timing} onChange={(e) => setTiming(e.target.value)} required className="inp">
+            <option value="">Select…</option>
+            {TIMING.map((t) => (
+              <option key={t} value={t}>
+                {t}
+              </option>
+            ))}
+          </select>
+        </Field>
         <Field label="Your single biggest go-to-market challenge right now">
           <textarea
             value={challenge}
@@ -156,11 +189,7 @@ function ApplyInner() {
           />
         </Field>
 
-        <button
-          type="submit"
-          disabled={submitting}
-          className="btn-primary w-full px-8 py-4 text-base disabled:opacity-60"
-        >
+        <button type="submit" disabled={submitting} className="btn-primary w-full px-8 py-4 text-base disabled:opacity-60">
           {submitting ? "Submitting…" : "Submit application →"}
         </button>
         <p className="text-center text-xs text-ink-subtle">

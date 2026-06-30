@@ -1,9 +1,10 @@
-import { Answers } from "@/lib/score";
+import { Answers, QualAnswers } from "@/lib/score";
 
-const KEY = "oversubscribed_scorecard_v1";
+const KEY = "oversubscribed_scorecard_v2";
 
 export interface StoredSession {
   answers: Answers;
+  qual: QualAnswers;
   firstName: string;
   email: string;
 }

@@ -6,7 +6,8 @@ import { useSearchParams } from "next/navigation";
 import { loadSession } from "@/lib/storage";
 import { scoreQuiz, ScorecardResult } from "@/lib/score";
 import ScoreBar from "@/components/ScoreBar";
-import Countdown from "@/components/Countdown";
+import Avatar from "@/components/Avatar";
+import { TESTIMONIALS } from "@/data/proof";
 
 function ResultsInner() {
   const params = useSearchParams();
@@ -20,22 +21,18 @@ function ResultsInner() {
     const display = (fnParam || session?.firstName || "").trim();
     setName(display);
     if (session?.answers && Object.keys(session.answers).length) {
-      setResult(scoreQuiz(session.answers));
+      setResult(scoreQuiz(session.answers, session.qual ?? {}));
     }
     setReady(true);
   }, [fnParam]);
 
   const greetName = name || "Founder";
-  const vslHref = `/vsl${name ? `?fn=${encodeURIComponent(name)}` : ""}`;
 
-  // No quiz data in session (e.g. opened directly) → send them to take it.
   if (ready && !result) {
     return (
       <main className="mx-auto flex min-h-screen max-w-lg flex-col items-center justify-center px-5 text-center">
         <h1 className="font-display text-3xl text-ink">Let&apos;s get your score first.</h1>
-        <p className="mt-3 text-ink-muted">
-          Your personalised scorecard takes about two minutes.
-        </p>
+        <p className="mt-3 text-ink-muted">Your personalised scorecard takes about two minutes.</p>
         <Link href="/" className="btn-primary mt-7 px-8 py-3.5">
           Take the Oversubscribed Scorecard →
         </Link>
@@ -51,7 +48,8 @@ function ResultsInner() {
     );
   }
 
-  const { factors, overall, archetype } = result;
+  const { factors, overall, archetype, ready: isReady } = result;
+  const nextHref = `/vsl?fn=${encodeURIComponent(name || "")}&type=${archetype.id}`;
 
   return (
     <main className="mx-auto max-w-2xl px-5 py-14 sm:py-20">
@@ -90,46 +88,72 @@ function ResultsInner() {
         ))}
       </div>
 
-      {/* the cost / bridge */}
+      {/* the cost / dream — Hormozi value framing */}
       <div className="card animate-fade-up mt-6 border-l-4 border-l-fuchsia-brand p-6">
         <p className="text-lg leading-relaxed text-ink">{archetype.costLine}</p>
-      </div>
-
-      {/* testimonial — SOURCE A REAL ONE before launch */}
-      <div className="card animate-fade-up mt-6 p-6">
-        {/* [TESTIMONIAL — source real quote from stories.mindvalley.com or Priestley's EM ratings] */}
-        <p className="text-ink-muted">
-          &ldquo;I came in thinking I had a marketing problem. I left realising I had a{" "}
-          <em>demand-design</em> problem — and a 12-month plan to fix it. We went from chasing to
-          choosing clients.&rdquo;
-        </p>
-        <p className="mt-3 text-sm font-bold text-fuchsia-dark">
-          — Programme member, Entrepreneurship Mastery
-          <span className="font-normal text-ink-subtle">
-            {" "}
-            · sessions rated 9.55/10 across 700+ ratings
-          </span>
+        <p className="mt-3 font-display text-lg font-semibold text-fuchsia-dark">
+          {archetype.dreamLine}
         </p>
       </div>
 
-      {/* CTA block */}
+      {/* same-archetype proof — Hormozi "perceived likelihood" */}
+      <div className="mt-8">
+        <p className="text-center text-sm font-bold uppercase tracking-[0.2em] text-ink-subtle">
+          People who closed this gap
+        </p>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          {TESTIMONIALS.slice(0, 2).map((t) => (
+            <div key={t.name} className="card p-5">
+              <div className="flex items-center gap-3">
+                <Avatar name={t.name} photo={t.photo} size={44} />
+                <div>
+                  <p className="font-display text-sm font-bold text-ink">{t.name}</p>
+                  <p className="text-xs text-ink-subtle">{t.role}</p>
+                </div>
+              </div>
+              <p className="mt-3 rounded-xl bg-fuchsia-light px-3 py-2 text-sm font-bold text-fuchsia-dark">
+                {t.result}
+              </p>
+              <p className="mt-3 text-sm text-ink-muted">&ldquo;{t.quote}&rdquo;</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CTA — routed by readiness, honest urgency (no fake timer) */}
       <div className="mt-10 text-center">
-        <p className="text-ink-muted">
-          Daniel recorded a short, personalised training that walks {greetName} through exactly how
-          to close these gaps and engineer demand-supply tension — in the age of AI.
-        </p>
-
-        <div className="chip mt-5 inline-flex items-center gap-2 px-4 py-2 text-sm">
-          <span>Your training unlocks for the next</span>
-          <Countdown seconds={420} />
-        </div>
-
-        <div className="mt-6">
-          <Link href={vslHref} className="btn-primary animate-pulse-primary inline-block px-10 py-4 text-lg">
-            WATCH MY PERSONALISED TRAINING NOW →
-          </Link>
-        </div>
-        <p className="mt-3 text-sm text-ink-subtle">Free · ~18 minutes · watch on demand</p>
+        {isReady ? (
+          <>
+            <p className="text-ink-muted">
+              You gave us your diagnosis — now here&apos;s the fix. Daniel recorded a short training
+              that shows {greetName} exactly how to engineer demand-supply tension and get
+              high-paying clients lining up, in the age of AI.
+            </p>
+            <div className="chip mt-5 inline-flex items-center gap-2 px-4 py-2 text-sm">
+              Small cohorts only · we keep the accelerator high-touch
+            </div>
+            <div className="mt-6">
+              <Link href={nextHref} className="btn-primary animate-pulse-primary inline-block px-10 py-4 text-lg">
+                WATCH MY PERSONALISED TRAINING →
+              </Link>
+            </div>
+            <p className="mt-3 text-sm text-ink-subtle">Free · ~18 minutes · watch on demand</p>
+          </>
+        ) : (
+          <>
+            <p className="text-ink-muted">
+              Here&apos;s the honest next step for you, {greetName}: get your offer reliably working
+              first. This short training shows where getting oversubscribed fits — so you build the
+              demand engine at the right time, not too early.
+            </p>
+            <div className="mt-6">
+              <Link href={nextHref} className="btn-primary inline-block px-10 py-4 text-lg">
+                SHOW ME WHERE I FIT →
+              </Link>
+            </div>
+            <p className="mt-3 text-sm text-ink-subtle">Free · ~18 minutes · watch on demand</p>
+          </>
+        )}
       </div>
     </main>
   );
